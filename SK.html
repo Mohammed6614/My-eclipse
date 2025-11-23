@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dr. Bensefia Manel Kawthar — Dental Clinic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="SK.css" />
+  <script src="auth.js"></script>
+  <script>
+    // Check authentication before loading page
+    if (!auth.isLoggedIn()) {
+      // Redirect to login if not authenticated
+      window.location.href = 'login.html';
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container" style="position:relative">
+      <div class="location-banner">
+        <div class="location-content">
+          <div class="location-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM12 11.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+          <div class="location-details">
+            <h2 class="location-title">Amsterdam</h2>
+            <p class="location-subtitle">7 years of excellence in dental care</p>
+          </div>
+          <div class="appointment-actions">
+            <button class="btn cta pulse-button" id="bookBtn" onclick="document.getElementById('booking-section').scrollIntoView({behavior: 'smooth'})">Book Appointment</button>
+            <button class="btn" id="logoutBtn" style="background:rgba(255,100,100,0.3);border:none;cursor:pointer;border-radius:12px;padding:12px 20px;color:#fff;font-weight:600;">Logout</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+              <svg class="sun-icon" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+              </svg>
+              <svg class="moon-icon" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" style="position:relative">
+      <div class="hero-card">
+        <h2>Welcome to Our Dental Clinic</h2>
+        <p>Offering refined dental treatments including ceramic crowns, fixed bridges and aesthetic veneers. Schedule easily, view prices, and contact us — crafted with care for a confident smile.</p>
+
+        <div class="grid" style="margin-top:16px">
+          <div class="card">
+            <div class="card-inner">
+              <div class="icon">
+                <div class="icon-inner">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M3 7L7 10L12 3L17 10L21 7V18C21 19.1 20.1 20 19 20H5C3.9 20 3 19.1 3 18V7Z" stroke="#023047" stroke-width="1.2" fill="#e6f7fb"/></svg>
+                </div>
+              </div>
+              <h3>Crowns</h3>
+              <p class="small">Custom ceramic or metal crowns with natural aesthetics</p>
+              <p class="price">USD <span id="priceCrown">120</span></p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <div class="icon">
+                <div class="icon-inner">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" stroke="#023047" stroke-width="1.2" fill="#fff6f6"/></svg>
+                </div>
+              </div>
+              <h3>Bridges</h3>
+              <p class="small">Fixed bridges to restore missing teeth and bite function</p>
+              <p class="price">USD <span id="priceBridge">220</span></p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <div class="icon">
+                <div class="icon-inner">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#023047" stroke-width="1.2" fill="#f3fcff"/></svg>
+                </div>
+              </div>
+              <h3>Veneers</h3>
+              <p class="small">Aesthetic porcelain veneers for a brighter smile</p>
+              <p class="price">USD <span id="priceVeneer">180</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+          <div class="small">Personalized care and modern lab support.</div>
+          <button class="btn" id="openEdit">Edit Display</button>
+        </div>
+      </div>
+
+      <aside class="card glowing-card" style="height:fit-content">
+        <div class="doctor-info">
+          <img src="" alt="Doctor photo" class="doctor-aside-photo" />
+          <h3 class="doctor-name">Dr. Bensefia Manel Kawthar</h3>
+          <p class="doctor-specialty">Specialist in Crowns & Aesthetic Dentistry</p>
+          <div class="separator"></div>
+          <h4>Working Hours</h4>
+          <p class="schedule">Mon — Fri: 09:00 — 17:00</p>
+          <div class="contact-buttons">
+            <button class="btn glow-button" id="callBtn">Quick Call</button>
+            <button class="btn glow-button" id="msgBtn">Message</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="testimonials-section">
+      <h2 class="section-title">Patient Testimonials</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="testimonial-rating">
+              <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+              </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+          </div>
+          <p class="testimonial-text">"Exceptional dental care! Dr. Bensefia's expertise in aesthetic dentistry transformed my smile. The clinic's modern approach and attention to detail are outstanding."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SA</div>
+            <div class="author-info">
+              <h4>Sarah Anderson</h4>
+              <p>Crown Treatment</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-rating">
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+          </div>
+          <p class="testimonial-text">"The veneers I received here are perfect! Professional team, comfortable environment, and amazing results. Highly recommend Dr. Bensefia's aesthetic work."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MJ</div>
+            <div class="author-info">
+              <h4>Michael Johnson</h4>
+              <p>Veneers Treatment</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-rating">
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+            <svg class="star" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="#FFD700"/>
+            </svg>
+          </div>
+          <p class="testimonial-text">"Incredible bridge work! The attention to detail and care I received was exceptional. The results exceeded my expectations. Thank you, Dr. Bensefia!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">EL</div>
+            <div class="author-info">
+              <h4>Emma Lewis</h4>
+              <p>Bridge Treatment</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking-section" id="booking-section">
+      <div class="section-header" style="margin-bottom:3rem">
+        <h2>Book Your Appointment</h2>
+        <p>Available Monday to Friday, 9:00 AM — 5:00 PM</p>
+      </div>
+
+      <div class="booking-container">
+        <form class="booking-form" id="bookingForm">
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Email Address" required>
+          </div>
+          <div class="form-group">
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+          </div>
+          <div class="form-group">
+            <select name="service" required>
+              <option value="">Select Service</option>
+              <option value="crown">Ceramic Crown - USD 120</option>
+              <option value="bridge">Fixed Bridge - USD 220</option>
+              <option value="veneer">Aesthetic Veneer - USD 180</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="date" name="date" required>
+          </div>
+          <button class="btn cta pulse-button" type="submit">
+            <span style="font-size:15px">Confirm Booking</span>
+            <span style="margin-left:8px">→</span>
+          </button>
+        </form>
+
+        <div id="bookingMessage" class="booking-message"></div>
+        <div id="bookingReceipt" class="booking-receipt" style="display:none;"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none">
+        <defs>
+          <path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="wave-parallax">
+          <use href="#wave" x="50" y="0" fill="rgba(255,255,255,0.1)" />
+          <use href="#wave" x="50" y="3" fill="rgba(255,255,255,0.07)" />
+          <use href="#wave" x="50" y="6" fill="rgba(255,255,255,0.04)" />
+        </g>
+      </svg>
+    </div>
+    <div class="footer-content">
+      <div class="footer-sections">
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <div class="contact-info">
+            <div class="contact-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+              <span>+31 (0) 20 123 4567</span>
+            </div>
+            <div class="contact-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <path d="M22 6l-10 7L2 6"/>
+              </svg>
+              <span>contact@dentalcare.com</span>
+            </div>
+            <div class="contact-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM12 11.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              <span>Amsterdam, Netherlands</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Working Hours</h3>
+          <div class="hours-grid">
+            <div class="hour-item">
+              <span>Monday - Friday</span>
+              <span>9:00 - 17:00</span>
+            </div>
+            <div class="hour-item">
+              <span>Saturday</span>
+              <span>9:00 - 14:00</span>
+            </div>
+            <div class="hour-item">
+              <span>Sunday</span>
+              <span>Closed</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3>Services</h3>
+          <div class="quick-links">
+            <a href="#" class="footer-link">Dental Crowns</a>
+            <a href="#" class="footer-link">Dental Bridges</a>
+            <a href="#" class="footer-link">Veneers</a>
+            <a href="#" class="footer-link">Cosmetic Dentistry</a>
+            <a href="#" class="footer-link">Dental Implants</a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <div class="quick-links">
+            <a href="#" class="footer-link">About Us</a>
+            <a href="#" class="footer-link">Book Appointment</a>
+            <a href="#" class="footer-link">Patient Reviews</a>
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M16 4H8C5.79086 4 4 5.79086 4 8V16C4 18.2091 5.79086 20 8 20H16C18.2091 20 20 18.2091 20 16V8C20 5.79086 18.2091 4 16 4Z M12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12C15 13.6569 13.6569 15 12 15Z M16.5 9C16.5 9.82843 15.8284 10.5 15 10.5C14.1716 10.5 13.5 9.82843 13.5 9C13.5 8.17157 14.1716 7.5 15 7.5C15.8284 7.5 16.5 8.17157 16.5 9Z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Twitter">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z"/>
+            </svg>
+          </a>
+        </div>
+        <div class="copyright">
+          © 2025 Dental Clinic. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="SK.js"></script>
+</body>
+</html>

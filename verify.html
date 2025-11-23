@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Verify Email — Dental Clinic</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="container">
+    <div class="login-box">
+      <h2>Email Verification</h2>
+      <p id="info">Enter the verification token you received by email, or click the link in the message.</p>
+      <form id="verifyForm">
+        <div class="input-box">
+          <input id="tokenInput" type="text" required />
+          <label for="tokenInput">Verification Token</label>
+        </div>
+        <button class="btn" type="submit">Verify Email</button>
+        <div style="margin-top:12px;text-align:center;"><a href="login.html">Back to Login</a></div>
+      </form>
+      <div id="verifyStatus" class="login-status"></div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3000/api';
+    const params = new URLSearchParams(window.location.search);
+    const tokenFromUrl = params.get('token');
+    const statusDiv = document.getElementById('verifyStatus');
+    const infoP = document.getElementById('info');
+    const tokenInput = document.getElementById('tokenInput');
+
+    if (tokenFromUrl) {
+      tokenInput.value = tokenFromUrl;
+      infoP.textContent = 'Detected token in the link. Click Verify to confirm.';
+    }
+
+    document.getElementById('verifyForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const token = tokenInput.value.trim();
+      if (!token) return;
+      try {
+        const res = await fetch(`${API_BASE}/verify`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
+        });
+        const data = await res.json();
+        if (data && data.success) {
+          statusDiv.textContent = '✓ Email verified successfully. Redirecting to login...';
+          statusDiv.className = 'login-status success';
+          setTimeout(() => window.location.href = 'login.html', 1800);
+        } else {
+          statusDiv.textContent = '✗ Verification failed. Token invalid or expired.';
+          statusDiv.className = 'login-status error';
+        }
+      } catch (err) {
+        statusDiv.textContent = '✗ Network error. Could not verify.';
+        statusDiv.className = 'login-status error';
+      }
+    });
+  </script>
+</body>
+</html>

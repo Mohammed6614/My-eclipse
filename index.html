@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Bensefia Dental Clinic — Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="intro.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18" stroke="#0066cc" stroke-width="2"/>
+          <path d="M15 20C15 22.76 17.24 25 20 25C22.76 25 25 22.76 25 20" stroke="#00b4d8" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="18" cy="18" r="1.5" fill="#0066cc"/>
+          <circle cx="22" cy="18" r="1.5" fill="#0066cc"/>
+        </svg>
+        <span>Dr. Bensefia</span>
+      </div>
+      <div class="nav-links">
+        <a href="#features">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="login.html" class="nav-login">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">Your Smile,<br><span class="gradient-text">Our Priority</span></h1>
+        <p class="hero-subtitle">Professional dental care with modern technology and personalized treatment plans</p>
+        
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">7+</span>
+            <span class="stat-label">Years</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Happy Patients</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Care</span>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="window.location.href='SK.html'">
+            <span class="btn-text">Book Appointment</span>
+            <span class="btn-icon">→</span>
+          </button>
+          <button class="btn btn-secondary" onclick="document.querySelector('#features').scrollIntoView({behavior: 'smooth'})">
+            <span class="btn-text">Learn More</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="card-showcase">
+          <div class="showcase-card card-1">
+            <div class="card-icon">👑</div>
+            <h3>Crowns</h3>
+            <p>Ceramic & Metal</p>
+          </div>
+          <div class="showcase-card card-2">
+            <div class="card-icon">🌉</div>
+            <h3>Bridges</h3>
+            <p>Fixed Solutions</p>
+          </div>
+          <div class="showcase-card card-3">
+            <div class="card-icon">✨</div>
+            <h3>Veneers</h3>
+            <p>Aesthetic Beauty</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <h2>Why Choose Us</h2>
+      <p>Excellence in every treatment</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">💎</div>
+        <h3>Premium Quality</h3>
+        <p>Using the finest materials and advanced techniques for lasting results</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏥</div>
+        <h3>Modern Clinic</h3>
+        <p>State-of-the-art equipment and comfortable environment</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">👨‍⚕️</div>
+        <h3>Expert Care</h3>
+        <p>Dr. Bensefia with 7+ years of specialized experience</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⏱️</div>
+        <h3>Quick Results</h3>
+        <p>Efficient treatments with minimal appointment time</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Fair Pricing</h3>
+        <p>Transparent costs with flexible payment options</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">😊</div>
+        <h3>Patient Focus</h3>
+        <p>Personalized care plans tailored to your needs</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Preview -->
+  <section class="services-preview">
+    <div class="section-header">
+      <h2>Our Services</h2>
+      <p>Comprehensive dental solutions</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-item">
+        <h3>Ceramic Crowns</h3>
+        <p class="service-price">USD 120</p>
+        <p class="service-desc">Beautiful, durable crowns that match your natural teeth</p>
+        <ul class="service-list">
+          <li>Custom color matching</li>
+          <li>Natural appearance</li>
+          <li>Long-lasting durability</li>
+        </ul>
+      </div>
+
+      <div class="service-item">
+        <h3>Fixed Bridges</h3>
+        <p class="service-price">USD 220</p>
+        <p class="service-desc">Restore missing teeth with permanent bridge solutions</p>
+        <ul class="service-list">
+          <li>Permanent solution</li>
+          <li>Natural function</li>
+          <li>Restored confidence</li>
+        </ul>
+      </div>
+
+      <div class="service-item">
+        <h3>Aesthetic Veneers</h3>
+        <p class="service-price">USD 180</p>
+        <p class="service-desc">Transform your smile with thin, custom veneers</p>
+        <ul class="service-list">
+          <li>Smile makeover</li>
+          <li>Minimal tooth reduction</li>
+          <li>Instant confidence</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="services-footer">
+      <p>Ready to transform your smile?</p>
+      <button class="btn btn-primary" onclick="window.location.href='SK.html'">
+        <span class="btn-text">Schedule Your Appointment</span>
+        <span class="btn-icon">→</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>Meet Dr. Bensefia</h2>
+        <p>With over 7 years of dedicated experience in dentistry, Dr. Bensefia Manel Kawthar has established herself as a specialist in crowns and aesthetic dentistry.</p>
+        
+        <p>Our clinic in Amsterdam is equipped with the latest technology to provide you with the best possible care. We believe in creating beautiful smiles through precision, care, and personalization.</p>
+        
+        <div class="about-highlights">
+          <div class="highlight">
+            <span class="highlight-icon">✓</span>
+            <span>7+ years experience</span>
+          </div>
+          <div class="highlight">
+            <span class="highlight-icon">✓</span>
+            <span>500+ satisfied patients</span>
+          </div>
+          <div class="highlight">
+            <span class="highlight-icon">✓</span>
+            <span>Modern clinic in Amsterdam</span>
+          </div>
+          <div class="highlight">
+            <span class="highlight-icon">✓</span>
+            <span>Personalized care plans</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-visual">
+        <div class="about-card">
+          <div class="about-icon">👨‍⚕️</div>
+          <h3>Professional Excellence</h3>
+          <p>Specialized training in aesthetic and restorative dentistry</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="section-header">
+      <h2>Get in Touch</h2>
+      <p>We'd love to hear from you</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <h3>Location</h3>
+        <p>Amsterdam, Netherlands</p>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <h3>Phone</h3>
+        <p>+31 (0) 20 123 4567</p>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <h3>Email</h3>
+        <p>info@drbensefia.nl</p>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">⏰</div>
+        <h3>Hours</h3>
+        <p>Mon—Fri: 9:00—17:00</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Dr. Bensefia Dental Clinic. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="SK.html" class="clinic-link">Visit Full Clinic Site</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="intro.js"></script>
+</body>
+</html>
