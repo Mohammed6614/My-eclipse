@@ -35,6 +35,16 @@ async function getTransporter() {
   return transporterPromise;
 }
 
+// Simple builtin VTIMEZONE generator for a few common zones.
+function generateVTimezone(tz) {
+  // Currently support Europe/Amsterdam — extend as needed.
+  if (!tz) return '';
+  if (tz === 'Europe/Amsterdam' || tz === 'Europe/Amsterdam') {
+    return `BEGIN:VTIMEZONE\\r\\nTZID:Europe/Amsterdam\\r\\nX-LIC-LOCATION:Europe/Amsterdam\\r\\nBEGIN:STANDARD\\r\\nTZOFFSETFROM:+0200\\r\\nTZOFFSETTO:+0100\\r\\nTZNAME:CET\\r\\nDTSTART:19701025T030000\\r\\nEND:STANDARD\\r\\nBEGIN:DAYLIGHT\\r\\nTZOFFSETFROM:+0100\\r\\nTZOFFSETTO:+0200\\r\\nTZNAME:CEST\\r\\nDTSTART:19700329T020000\\r\\nEND:DAYLIGHT\\r\\nEND:VTIMEZONE\\r\\n`;
+  }
+  return '';
+}
+
 app.post('/api/register', async (req, res) => {
   const { email, password } = req.body || {};
   if (!email || !password) return res.status(400).json({ success: false, reason: 'invalid' });
@@ -91,7 +101,9 @@ app.post('/api/bookings', (req, res) => {
             const dtStartLocal = `${datePart}T${pad(hh)}${pad(mm)}00`;
             let endH = parseInt(hh || '0', 10); let endM = parseInt(mm || '0', 10) + 60; endH += Math.floor(endM/60); endM = endM%60; endH = endH%24;
             const dtEndLocal = `${datePart}T${pad(endH)}${pad(endM)}00`;
-            ics = `BEGIN:VCALENDAR\\r\\nVERSION:2.0\\r\\nPRODID:-//DrBensefiaClinic//EN\\r\\nBEGIN:VEVENT\\r\\nUID:${uid}\\r\\nDTSTAMP:${dtstamp}\\r\\nDTSTART;TZID=${tz}:${dtStartLocal}\\r\\nDTEND;TZID=${tz}:${dtEndLocal}\\r\\nSUMMARY:Appointment - ${service}\\r\\nDESCRIPTION:Booking ID:${booking.id}\\\\nPatient:${name}\\\\nNotes:${(notes||'')}\\\\nTimezone:${tz}\\r\\nEND:VEVENT\\r\\nEND:VCALENDAR`;
+            // Include VTIMEZONE for supported zones (e.g., Europe/Amsterdam)
+            const vtz = generateVTimezone(tz);
+            ics = `BEGIN:VCALENDAR\\r\\nVERSION:2.0\\r\\nPRODID:-//DrBensefiaClinic//EN\\r\\n${vtz}BEGIN:VEVENT\\r\\nUID:${uid}\\r\\nDTSTAMP:${dtstamp}\\r\\nDTSTART;TZID=${tz}:${dtStartLocal}\\r\\nDTEND;TZID=${tz}:${dtEndLocal}\\r\\nSUMMARY:Appointment - ${service}\\r\\nDESCRIPTION:Booking ID:${booking.id}\\\\nPatient:${name}\\\\nNotes:${(notes||'')}\\\\nTimezone:${tz}\\r\\nEND:VEVENT\\r\\nEND:VCALENDAR`;
           } else {
             const dt = (date || '').split('T')[0]; const dtStart = dt.replace(/-/g,''); const year = parseInt(dt.substr(0,4),10); const month = parseInt(dt.substr(5,2),10); const day = parseInt(dt.substr(8,2),10); const next = new Date(Date.UTC(year, month-1, day+1)); const dtEnd = next.toISOString().slice(0,10).replace(/-/g,''); const dtstamp = new Date().toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z'; ics = `BEGIN:VCALENDAR\\r\\nVERSION:2.0\\r\\nPRODID:-//DrBensefiaClinic//EN\\r\\nBEGIN:VEVENT\\r\\nUID:${booking.id}\\r\\nDTSTAMP:${dtstamp}\\r\\nDTSTART;VALUE=DATE:${dtStart}\\r\\nDTEND;VALUE=DATE:${dtEnd}\\r\\nSUMMARY:Appointment - ${service}\\r\\nDESCRIPTION:Booking ID:${booking.id}\\\\nPatient:${name}\\\\nNotes:${(notes||'')}\\r\\nEND:VEVENT\\r\\nEND:VCALENDAR`;
           }
