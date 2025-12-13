@@ -130,3 +130,83 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// Landing booking form handler
+const landingForm = document.getElementById('landingBookingForm');
+if (landingForm) {
+  landingForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = new FormData(landingForm);
+    const name = form.get('name');
+    const email = form.get('email');
+    const service = form.get('service');
+    const date = form.get('date') || null;
+    const time = form.get('time') || '';
+    const timezone = form.get('timezone') || 'UTC';
+
+    if (!name || !email || !service) {
+      alert('Please fill name, email and select a service');
+      return;
+    }
+
+    const token = localStorage.getItem('authToken');
+    if (!token && !confirm('You are not logged in. We can still create a booking, but you will not have a session. Continue?')) return;
+
+    try {
+      const res = await fetch('http://localhost:3000/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-session-token': token || ''
+        },
+        body: JSON.stringify({ name, email, service, date, time, timezone, notes: '' })
+      });
+      const data = await res.json();
+      if (!data || !data.success) {
+        alert('Could not create booking. Please try again later.');
+        return;
+      }
+
+      const booking = data.booking;
+      const receiptDiv = document.getElementById('landingBookingReceipt');
+      receiptDiv.innerHTML = `<div class="receipt-header"><div class="receipt-title">Booking Received</div><div class="receipt-number">ID: ${booking.id}</div></div><div class="receipt-content"><div>Service: ${service}</div><div>Date: ${date || 'TBD'}</div><div>Time: ${time || 'TBD'}</div></div>`;
+      receiptDiv.style.display = 'block';
+      landingForm.reset();
+      receiptDiv.scrollIntoView({ behavior: 'smooth' });
+        // show email preview toast if provided (dev)
+        if (data.previewUrl || data.adminPreviewUrl) {
+          showEmailToast(data.previewUrl, data.adminPreviewUrl);
+        }
+    } catch (err) {
+      console.error('Landing booking error', err);
+      alert('Network error: could not submit booking.');
+    }
+  });
+}
+
+// Small toast for email preview links
+function showEmailToast(previewUrl, adminUrl) {
+  const id = 'emailPreviewToast';
+  let t = document.getElementById(id);
+  if (!t) {
+    t = document.createElement('div');
+    t.id = id;
+    t.style.position = 'fixed';
+    t.style.right = '18px';
+    t.style.bottom = '18px';
+    t.style.zIndex = 9999;
+    t.style.maxWidth = '320px';
+    t.style.background = 'rgba(10,20,40,0.95)';
+    t.style.color = '#fff';
+    t.style.padding = '12px 14px';
+    t.style.borderRadius = '8px';
+    t.style.boxShadow = '0 6px 22px rgba(0,0,0,0.3)';
+    t.style.fontSize = '13px';
+    document.body.appendChild(t);
+  }
+  t.innerHTML = `<div style="margin-bottom:8px;font-weight:600">Booking email sent</div>` +
+    (previewUrl ? `<div style="margin-bottom:6px"><a href="${previewUrl}" target="_blank" style="color:#9be7ff">Open user email preview</a></div>` : '') +
+    (adminUrl ? `<div><a href="${adminUrl}" target="_blank" style="color:#ffd19a">Open admin email preview</a></div>` : '');
+  t.style.display = 'block';
+  setTimeout(() => { if (t) t.style.display = 'none'; }, 20000);
+}

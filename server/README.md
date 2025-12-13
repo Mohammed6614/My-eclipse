@@ -1,3 +1,33 @@
+# Dental Clinic Backend (My_moon/server)
+
+This is a minimal demo backend for the Dr. Bensefia Dental Clinic project. It provides:
+
+- User registration with email verification (Ethereal for dev if SMTP not configured)
+- Login with bcrypt password hashing
+- Simple session token stored in the JSON DB (demo only)
+- Booking creation endpoint
+
+Important: This is a demo. Do NOT use this in production without changes (use a real DB, secure sessions, HTTPS, etc.).
+
+Quick start:
+
+```bash
+cd server
+cp .env.example .env   # fill SMTP values if desired
+npm install
+npm run dev
+```
+
+API endpoints (base: http://localhost:3000/api):
+
+- POST /api/register { email, password }
+- POST /api/send-verification { email }
+- POST /api/verify { token }
+- POST /api/login { email, password }
+- GET  /api/me  (x-session-token header)
+- POST /api/bookings { name, email, service, date?, notes? }
+
+Data is stored in `data.json` in the `server` folder.
 Minimal backend for email verification (demo)
 
 Quick start (PowerShell)

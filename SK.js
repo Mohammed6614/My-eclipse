@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', function(){
   // Booking form submission
   const bookingForm = document.getElementById('bookingForm');
   if (bookingForm) {
-    bookingForm.addEventListener('submit', (e) => {
+    bookingForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       // Get form data
       const formData = new FormData(bookingForm);
       const name = formData.get('name');
@@ -19,79 +19,128 @@ document.addEventListener('DOMContentLoaded', function(){
       const phone = formData.get('phone');
       const service = formData.get('service');
       const date = formData.get('date');
-      
-      const serviceInfo = servicePricing[service] || { name: 'Unknown Service', price: 0 };
-      const receiptNumber = 'RCP-' + Date.now().toString().slice(-8);
-      const receiptDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-      
-      // Format appointment date
-      const appointmentDate = new Date(date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-      
-      // Create receipt HTML
-      const receiptHTML = `
-        <div class="receipt-header">
-          <div class="receipt-title">Booking Confirmed</div>
-          <div class="receipt-subtitle">Dr. Bensefia Dental Clinic</div>
-          <div class="receipt-number">Receipt #: ${receiptNumber}</div>
-          <div class="receipt-number">Date: ${receiptDate}</div>
-        </div>
-        
-        <div class="receipt-content">
-          <div class="receipt-item">
-            <div class="receipt-item-label">Patient Name</div>
-            <div class="receipt-item-value">${name}</div>
+
+      // Require basic fields
+      if (!name || !email || !service) {
+        alert('Please provide name, email and select a service.');
+        return;
+      }
+
+      // Ensure user is logged in
+      const sessionToken = (typeof auth !== 'undefined' && auth.token) ? auth.token : localStorage.getItem('authToken');
+      if (!sessionToken) {
+        if (confirm('You must be logged in to book an appointment. Go to login now?')) {
+          window.location.href = 'login.html';
+        }
+        return;
+      }
+
+      // Submit booking to backend
+      try {
+        const res = await fetch('http://localhost:3000/api/bookings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-session-token': sessionToken
+          },
+          body: JSON.stringify({ name, email, service, date, notes: '' })
+        });
+        const data = await res.json();
+        if (!data || !data.success) {
+          alert('Booking failed. Please try again later.');
+          return;
+        }
+
+        const booking = data.booking;
+        const serviceInfo = servicePricing[service] || { name: 'Unknown Service', price: 0 };
+        const receiptNumber = 'RCP-' + Date.now().toString().slice(-8);
+        const receiptDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const appointmentDate = date ? new Date(date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : 'To be scheduled';
+
+        // Create receipt HTML (same as before)
+        const receiptHTML = `
+          <div class="receipt-header">
+            <div class="receipt-title">Booking Confirmed</div>
+            <div class="receipt-subtitle">Dr. Bensefia Dental Clinic</div>
+            <div class="receipt-number">Receipt #: ${receiptNumber}</div>
+            <div class="receipt-number">Date: ${receiptDate}</div>
           </div>
-          <div class="receipt-item">
-            <div class="receipt-item-label">Email</div>
-            <div class="receipt-item-value">${email}</div>
+          
+          <div class="receipt-content">
+            <div class="receipt-item">
+              <div class="receipt-item-label">Patient Name</div>
+              <div class="receipt-item-value">${name}</div>
+            </div>
+            <div class="receipt-item">
+              <div class="receipt-item-label">Email</div>
+              <div class="receipt-item-value">${email}</div>
+            </div>
+            <div class="receipt-item">
+              <div class="receipt-item-label">Phone</div>
+              <div class="receipt-item-value">${phone}</div>
+            </div>
+            <div class="receipt-item highlight">
+              <div class="receipt-item-label">Service</div>
+              <div class="receipt-item-value">${serviceInfo.name}</div>
+            </div>
+            <div class="receipt-item highlight">
+              <div class="receipt-item-label">Appointment Date</div>
+              <div class="receipt-item-value">${appointmentDate}</div>
+            </div>
           </div>
-          <div class="receipt-item">
-            <div class="receipt-item-label">Phone</div>
-            <div class="receipt-item-value">${phone}</div>
+          
+          <div class="receipt-summary">
+            <div class="receipt-summary-row">
+              <span>Service Cost:</span>
+              <span>USD ${serviceInfo.price}</span>
+            </div>
+            <div class="receipt-summary-row">
+              <span>Consultation Fee:</span>
+              <span>USD 0</span>
+            </div>
+            <div class="receipt-summary-row">
+              <span>Total Amount:</span>
+              <span>USD ${serviceInfo.price}</span>
+            </div>
           </div>
-          <div class="receipt-item highlight">
-            <div class="receipt-item-label">Service</div>
-            <div class="receipt-item-value">${serviceInfo.name}</div>
+          
+          <div class="receipt-actions">
+            <button class="receipt-btn receipt-btn-primary" onclick="window.print()">🖨️ Print Receipt</button>
+            <button class="receipt-btn receipt-btn-secondary" id="bookAnotherBtn">Book Another</button>
           </div>
-          <div class="receipt-item highlight">
-            <div class="receipt-item-label">Appointment Date</div>
-            <div class="receipt-item-value">${appointmentDate}</div>
-          </div>
-        </div>
-        
-        <div class="receipt-summary">
-          <div class="receipt-summary-row">
-            <span>Service Cost:</span>
-            <span>USD ${serviceInfo.price}</span>
-          </div>
-          <div class="receipt-summary-row">
-            <span>Consultation Fee:</span>
-            <span>USD 0</span>
-          </div>
-          <div class="receipt-summary-row">
-            <span>Total Amount:</span>
-            <span>USD ${serviceInfo.price}</span>
-          </div>
-        </div>
-        
-        <div class="receipt-actions">
-          <button class="receipt-btn receipt-btn-primary" onclick="window.print()">🖨️ Print Receipt</button>
-          <button class="receipt-btn receipt-btn-secondary" onclick="document.getElementById('bookingForm').style.display='block'; document.getElementById('bookingForm').reset(); document.getElementById('bookingReceipt').style.display='none'; document.getElementById('bookingForm').scrollIntoView({behavior: 'smooth'});">Book Another</button>
-        </div>
-      `;
-      
-      // Display receipt
-      const receiptDiv = document.getElementById('bookingReceipt');
-      receiptDiv.innerHTML = receiptHTML;
-      receiptDiv.style.display = 'block';
-      
-      // Hide form
-      bookingForm.style.display = 'none';
-      
-      // Scroll to receipt
-      setTimeout(() => {
-        receiptDiv.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+        `;
+
+        // Display receipt
+        const receiptDiv = document.getElementById('bookingReceipt');
+        receiptDiv.innerHTML = receiptHTML;
+        receiptDiv.style.display = 'block';
+
+        // Hide form
+        bookingForm.style.display = 'none';
+
+        // Wire book another
+        const bookAnotherBtn = document.getElementById('bookAnotherBtn');
+        if (bookAnotherBtn) bookAnotherBtn.addEventListener('click', () => {
+          bookingForm.style.display = 'block';
+          bookingForm.reset();
+          receiptDiv.style.display = 'none';
+          bookingForm.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Scroll to receipt
+        setTimeout(() => {
+          receiptDiv.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+
+        // show email preview toast if provided (dev)
+        if (data.previewUrl || data.adminPreviewUrl) {
+          showEmailToast(data.previewUrl, data.adminPreviewUrl);
+        }
+
+      } catch (err) {
+        console.error('Booking error', err);
+        alert('Network error: could not submit booking.');
+      }
     });
   }
 
@@ -176,6 +225,33 @@ document.addEventListener('DOMContentLoaded', function(){
     document.body.appendChild(c);
     setTimeout(function(){document.body.removeChild(c);},1200);
   }
+
+// Small toast for email preview links
+function showEmailToast(previewUrl, adminUrl) {
+  const id = 'emailPreviewToastSK';
+  let t = document.getElementById(id);
+  if (!t) {
+    t = document.createElement('div');
+    t.id = id;
+    t.style.position = 'fixed';
+    t.style.right = '18px';
+    t.style.bottom = '18px';
+    t.style.zIndex = 9999;
+    t.style.maxWidth = '360px';
+    t.style.background = 'rgba(10,20,40,0.95)';
+    t.style.color = '#fff';
+    t.style.padding = '12px 14px';
+    t.style.borderRadius = '8px';
+    t.style.boxShadow = '0 6px 22px rgba(0,0,0,0.3)';
+    t.style.fontSize = '13px';
+    document.body.appendChild(t);
+  }
+  t.innerHTML = `<div style="margin-bottom:8px;font-weight:600">Booking email sent</div>` +
+    (previewUrl ? `<div style="margin-bottom:6px"><a href="${previewUrl}" target="_blank" style="color:#9be7ff">Open user email preview</a></div>` : '') +
+    (adminUrl ? `<div><a href="${adminUrl}" target="_blank" style="color:#ffd19a">Open admin email preview</a></div>` : '');
+  t.style.display = 'block';
+  setTimeout(() => { if (t) t.style.display = 'none'; }, 20000);
+}
 
   // Highlight centered testimonial in horizontal scroller
   try{

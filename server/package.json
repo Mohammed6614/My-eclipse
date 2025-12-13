@@ -1,7 +1,7 @@
 {
   "name": "dental-clinic-backend",
-  "version": "1.0.0",
-  "description": "Minimal backend for email verification (demo) for Dr. Bensefia clinic project",
+  "version": "1.1.0",
+  "description": "Demo backend for Dr. Bensefia clinic — registration, email verification, login, bookings",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -14,7 +14,8 @@
     "dotenv": "^16.0.0",
     "express": "^4.18.2",
     "nodemailer": "^6.9.3",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "bcryptjs": "^2.4.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
