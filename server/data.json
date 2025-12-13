@@ -1,0 +1,61 @@
+{
+  "users": [
+    {
+      "id": "593f987f-ec91-495b-bbbb-47d8e82b4483",
+      "email": "qa@example.com",
+      "passwordHash": "$2a$10$vPDlYsoyM2HzEQEqxdR6DunkXyOA02SN9cyeYI8P68x.VZ0ElQ0RO",
+      "verified": true,
+      "createdAt": "2025-12-13T21:21:12.678Z",
+      "sessionToken": "97eff2a4-7ba8-43fe-afbf-cd116a23c1bd"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "ab4c9171-6db2-4642-983b-0a12005174b5",
+      "name": "QA Test",
+      "email": "qa@example.com",
+      "service": "veneer",
+      "date": "2026-01-10",
+      "notes": "Automated test booking",
+      "createdAt": "2025-12-13T21:28:03.302Z"
+    },
+    {
+      "id": "1a01e5ba-9f55-4857-a1e9-bae04150976f",
+      "name": "EmailTest",
+      "email": "qa@example.com",
+      "service": "crowns",
+      "date": "2026-02-14",
+      "notes": "Test booking email",
+      "createdAt": "2025-12-13T21:31:34.855Z"
+    },
+    {
+      "id": "098d9453-94d4-4047-8432-84a758767f06",
+      "name": "AdminEmailTest",
+      "email": "qa@example.com",
+      "service": "veneers",
+      "date": "2026-03-01",
+      "notes": "Send admin copy test",
+      "createdAt": "2025-12-13T21:36:45.982Z"
+    },
+    {
+      "id": "0f797d59-f7c9-4bd7-a558-e0dcc059edd5",
+      "name": "TimeTest",
+      "email": "qa@example.com",
+      "service": "veneers",
+      "date": "2026-04-01",
+      "notes": "Test time+tz",
+      "createdAt": "2025-12-13T21:43:00.913Z"
+    },
+    {
+      "id": "826baf7f-6834-4421-af06-d2d713e5dd9d",
+      "name": "QA Tester",
+      "email": "qa@example.com",
+      "service": "Consult",
+      "date": "2025-12-20",
+      "notes": "Test booking",
+      "createdAt": "2025-12-13T22:54:39.073Z",
+      "previewUrl": "https://ethereal.email/message/aT3urzKY-EBan3TZaT3ustthUtbp.iO.AAAAAfvZKWfJeVRkHDJeNuNOXvs",
+      "adminPreviewUrl": "https://ethereal.email/message/aT3urzKY-EBan3TZaT3utIGyTc4D8MNLAAAAAieYLzSKH.omSrRxHFq.zGg"
+    }
+  ]
+}
