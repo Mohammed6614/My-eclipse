@@ -8,6 +8,25 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // Booking form submission
   const bookingForm = document.getElementById('bookingForm');
+  // Auto-fill date/time inputs so receipts show concrete timestamps immediately
+  if (bookingForm) {
+    const dateInput = bookingForm.querySelector('input[name="date"]');
+    const timeInput = bookingForm.querySelector('input[name="time"]');
+    try {
+      const now = new Date();
+      if (dateInput && !dateInput.value) {
+        dateInput.value = now.toISOString().slice(0,10); // YYYY-MM-DD
+      }
+      if (timeInput && !timeInput.value) {
+        // round to next 15 minutes for nicer default
+        const mins = now.getMinutes();
+        const round = Math.ceil(mins / 15) * 15;
+        now.setMinutes(round);
+        now.setSeconds(0);
+        timeInput.value = now.toTimeString().slice(0,5); // HH:MM
+      }
+    } catch (e) { /* ignore */ }
+  }
   if (bookingForm) {
     bookingForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -46,10 +65,20 @@ document.addEventListener('DOMContentLoaded', function(){
         const serviceInfo = servicePricing[service] || { name: 'Unknown Service', price: 0 };
         const receiptNumber = 'RCP-' + Date.now().toString().slice(-8);
         const receiptDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        let appointmentDate = 'To be scheduled';
-        if (date) {
-          if (time) appointmentDate = `${date} ${time} (${timezone})`;
-          else appointmentDate = new Date(date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        // Prefer a concrete DateTime constructed from date+time; otherwise fall back to date-only or booking createdAt
+        let appointmentDate = '';
+        try {
+          if (date && time) {
+            const dt = new Date(`${date}T${time}`);
+            appointmentDate = dt.toLocaleString();
+          } else if (date) {
+            const dt = new Date(date);
+            appointmentDate = dt.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+          } else {
+            appointmentDate = new Date(booking.createdAt).toLocaleString();
+          }
+        } catch (e) {
+          appointmentDate = date ? `${date} ${time}` : new Date(booking.createdAt).toLocaleString();
         }
 
         // Create receipt HTML (same as before)
@@ -123,12 +152,51 @@ document.addEventListener('DOMContentLoaded', function(){
           bookingForm.scrollIntoView({ behavior: 'smooth' });
         });
 
+        // If the chosen appointment time is outside working hours, show a notice.
+        // Working hours: Mon-Fri 09:00-17:00 (local time)
+        try {
+          const msgDiv = document.getElementById('bookingMessage');
+          if (msgDiv) {
+            msgDiv.innerHTML = '';
+            msgDiv.style.display = 'block';
+            msgDiv.style.padding = '12px';
+            msgDiv.style.borderRadius = '8px';
+            msgDiv.style.marginBottom = '12px';
+          }
+          let outside = false;
+          if (booking.date && booking.time) {
+            const appt = new Date(`${booking.date}T${booking.time}`);
+            const day = appt.getDay(); // 0 = Sun, 6 = Sat
+            const hr = appt.getHours();
+            const min = appt.getMinutes();
+            // outside if weekend or before 09:00 or at/after 17:00
+            if (day === 0 || day === 6) outside = true;
+            if (hr < 9 || hr >= 17) outside = true;
+          }
+          if (msgDiv) {
+            if (outside) {
+              msgDiv.innerHTML = '<strong>Note:</strong> The selected appointment is outside our working hours (Mon–Fri 09:00–17:00). We will contact you to confirm or reschedule within working hours.';
+              msgDiv.style.background = 'rgba(255,243,205,0.95)';
+              msgDiv.style.color = '#5a3e00';
+              msgDiv.style.border = '1px solid rgba(255,200,0,0.25)';
+            } else if (!booking.time) {
+              msgDiv.innerHTML = '<strong>Note:</strong> No specific time was selected. We will contact you to confirm an appointment time within our working hours (Mon–Fri 09:00–17:00).';
+              msgDiv.style.background = 'rgba(220,240,255,0.95)';
+              msgDiv.style.color = '#0b3954';
+              msgDiv.style.border = '1px solid rgba(10,140,200,0.12)';
+            } else {
+              // clear message area when all good
+              msgDiv.innerHTML = '';
+              msgDiv.style.display = 'none';
+            }
+          }
+
+        } catch (e) { /* ignore display errors */ }
+
         // Scroll to receipt
         setTimeout(() => {
           receiptDiv.scrollIntoView({ behavior: 'smooth' });
         }, 100);
-
-        // No backend available — no email previews to show in frontend-only mode.
 
       } catch (err) {
         console.error('Booking error', err);
