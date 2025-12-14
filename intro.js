@@ -149,34 +149,24 @@ if (landingForm) {
       return;
     }
 
-    const token = localStorage.getItem('authToken');
-    if (!token && !confirm('You are not logged in. We can still create a booking, but you will not have a session. Continue?')) return;
-
+    // Frontend-only booking simulation (no backend).
     try {
-      const res = await fetch('http://localhost:3000/api/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-session-token': token || ''
-        },
-        body: JSON.stringify({ name, email, service, date, time, timezone, notes: '' })
-      });
-      const data = await res.json();
-      if (!data || !data.success) {
-        alert('Could not create booking. Please try again later.');
-        return;
-      }
-
-      const booking = data.booking;
+      const booking = {
+        id: 'LOCAL-' + Date.now().toString(36),
+        name,
+        email,
+        service,
+        date: date || null,
+        time: time || '',
+        timezone: timezone || 'UTC',
+        notes: '',
+        createdAt: new Date().toISOString()
+      };
       const receiptDiv = document.getElementById('landingBookingReceipt');
       receiptDiv.innerHTML = `<div class="receipt-header"><div class="receipt-title">Booking Received</div><div class="receipt-number">ID: ${booking.id}</div></div><div class="receipt-content"><div>Service: ${service}</div><div>Date: ${date || 'TBD'}</div><div>Time: ${time || 'TBD'}</div></div>`;
       receiptDiv.style.display = 'block';
       landingForm.reset();
       receiptDiv.scrollIntoView({ behavior: 'smooth' });
-        // show email preview toast if provided (dev)
-        if (data.previewUrl || data.adminPreviewUrl) {
-          showEmailToast(data.previewUrl, data.adminPreviewUrl);
-        }
     } catch (err) {
       console.error('Landing booking error', err);
       alert('Network error: could not submit booking.');

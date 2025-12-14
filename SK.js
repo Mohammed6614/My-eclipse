@@ -26,32 +26,19 @@ document.addEventListener('DOMContentLoaded', function(){
         return;
       }
 
-      // Ensure user is logged in
-      const sessionToken = (typeof auth !== 'undefined' && auth.token) ? auth.token : localStorage.getItem('authToken');
-      if (!sessionToken) {
-        if (confirm('You must be logged in to book an appointment. Go to login now?')) {
-          window.location.href = 'login.html';
-        }
-        return;
-      }
-
-      // Submit booking to backend
+      // Frontend-only booking simulation (backend removed).
       try {
-        const res = await fetch('http://localhost:3000/api/bookings', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-session-token': sessionToken
-          },
-          body: JSON.stringify({ name, email, service, date, notes: '' })
-        });
-        const data = await res.json();
-        if (!data || !data.success) {
-          alert('Booking failed. Please try again later.');
-          return;
-        }
-
-        const booking = data.booking;
+        // Create a local booking object to simulate server response
+        const booking = {
+          id: 'LOCAL-' + Date.now().toString(36),
+          name,
+          email,
+          phone,
+          service,
+          date: date || null,
+          notes: '',
+          createdAt: new Date().toISOString()
+        };
         const serviceInfo = servicePricing[service] || { name: 'Unknown Service', price: 0 };
         const receiptNumber = 'RCP-' + Date.now().toString().slice(-8);
         const receiptDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -132,10 +119,7 @@ document.addEventListener('DOMContentLoaded', function(){
           receiptDiv.scrollIntoView({ behavior: 'smooth' });
         }, 100);
 
-        // show email preview toast if provided (dev)
-        if (data.previewUrl || data.adminPreviewUrl) {
-          showEmailToast(data.previewUrl, data.adminPreviewUrl);
-        }
+        // No backend available — no email previews to show in frontend-only mode.
 
       } catch (err) {
         console.error('Booking error', err);
@@ -148,9 +132,10 @@ document.addEventListener('DOMContentLoaded', function(){
   const logoutBtn = document.getElementById('logoutBtn');
   if(logoutBtn){
     logoutBtn.addEventListener('click', function(){
-      if(confirm('Are you sure you want to logout?')){
-        auth.logout();
-        window.location.href = 'login.html';
+        if(confirm('Are you sure you want to logout?')){
+        // Clear local auth flag (frontend-only) and redirect to home.
+        try { localStorage.removeItem('authToken'); } catch(e){}
+        window.location.href = 'index.html';
       }
     });
   }

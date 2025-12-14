@@ -6,14 +6,6 @@
   <title>Dr. Bensefia Manel Kawthar — Dental Clinic</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="SK.css" />
-  <script src="auth.js"></script>
-  <script>
-    // Check authentication before loading page
-    if (!auth.isLoggedIn()) {
-      // Redirect to login if not authenticated
-      window.location.href = 'login.html';
-    }
-  </script>
 </head>
 <body>
   <header>
@@ -31,6 +23,7 @@
           </div>
           <div class="appointment-actions">
             <button class="btn cta pulse-button" id="bookBtn" onclick="document.getElementById('booking-section').scrollIntoView({behavior: 'smooth'})">Book Appointment</button>
+            <a class="btn" href="index.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:12px;background:rgba(0,0,0,0.06);">Home</a>
             <button class="btn" id="logoutBtn" style="background:rgba(255,100,100,0.3);border:none;cursor:pointer;border-radius:12px;padding:12px 20px;color:#fff;font-weight:600;">Logout</button>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
               <svg class="sun-icon" viewBox="0 0 24 24" width="24" height="24">
