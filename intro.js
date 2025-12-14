@@ -131,6 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// Dark mode removed for index page — force light theme and clear saved preference
+document.documentElement.setAttribute('data-theme', 'light');
+try { localStorage.removeItem('theme'); } catch (e) {}
+
 // Quick booking removed — booking is handled on SK.html now.
 
 // Small toast for email preview links

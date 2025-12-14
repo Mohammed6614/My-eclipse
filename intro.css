@@ -1057,3 +1057,98 @@ body {
     font-size: 0.95rem;
   }
 }
+
+/* Dark theme overrides when html[data-theme="dark"] is set */
+[data-theme="dark"] {
+  --primary: #00b4d8;
+  --primary-dark: #0066cc;
+  --secondary: #0066cc;
+  --accent: #66f0ff;
+  --dark: #071226;
+  --light: #071226;
+  --text: #dbeafe;
+  --text-light: #93c5fd;
+  --border: rgba(255,255,255,0.06);
+}
+
+[data-theme="dark"] body {
+  background: linear-gradient(180deg,#061024 0%, #071226 100%);
+  color: var(--text);
+}
+
+[data-theme="dark"] .navbar {
+  background: rgba(6,10,20,0.6);
+  border-bottom-color: rgba(255,255,255,0.03);
+}
+
+[data-theme="dark"] .animated-bg .blob-1 { background: rgba(0,180,216,0.06); }
+[data-theme="dark"] .animated-bg .blob-2 { background: rgba(0,102,204,0.04); }
+[data-theme="dark"] .animated-bg .blob-3 { background: rgba(102,51,153,0.04); }
+
+[data-theme="dark"] .nav-links a { color: var(--text); }
+[data-theme="dark"] .nav-links a:hover { color: var(--primary); }
+
+[data-theme="dark"] .btn-primary {
+  box-shadow: 0 8px 30px rgba(0, 180, 216, 0.10), inset 0 1px 0 rgba(255,255,255,0.02);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+/* Dark-mode visual polish */
+[data-theme="dark"] * {
+  transition: color 220ms ease, background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+[data-theme="dark"] .showcase-card,
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .service-item,
+[data-theme="dark"] .about-card,
+[data-theme="dark"] .booking-container,
+[data-theme="dark"] .modal-card,
+[data-theme="dark"] .contact-item {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.45), inset 0 1px 0 rgba(255,255,255,0.02);
+  backdrop-filter: blur(6px) saturate(120%);
+}
+
+[data-theme="dark"] .card-showcase .showcase-card:hover,
+[data-theme="dark"] .feature-card:hover,
+[data-theme="dark"] .service-item:hover,
+[data-theme="dark"] .about-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 18px 48px rgba(2,6,23,0.6);
+}
+
+[data-theme="dark"] .hero-title {
+  background: linear-gradient(90deg, rgba(102,226,255,0.9), rgba(163,140,255,0.85));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="dark"] .booking-form input,
+[data-theme="dark"] .booking-form select,
+[data-theme="dark"] .booking-form textarea {
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 6px 18px rgba(3,7,18,0.55) inset;
+}
+
+[data-theme="dark"] .booking-message {
+  background: linear-gradient(90deg, rgba(0,180,216,0.06), rgba(0,102,204,0.03));
+  color: var(--text);
+  border-left-color: rgba(0,180,216,0.25);
+}
+
+[data-theme="dark"] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(0,180,216,0.03), transparent 8%), radial-gradient(800px 400px at 90% 90%, rgba(163,140,255,0.02), transparent 6%);
+  z-index: -1;
+}
+
+[data-theme="dark"] .animated-bg .blob { filter: blur(60px) saturate(120%); opacity: 0.06; }
+

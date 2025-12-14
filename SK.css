@@ -883,7 +883,8 @@ th{color:#475569;font-weight:700}
   margin: 0 auto 20px;
   display: block;
   border: 3px solid #fff;
-  box-shadow: 0 0 20px rgba(0, 102, 204, 0.15);
+  /* cooler glow: replace warm/orange tones with teal/cyan */
+  box-shadow: 0 0 22px rgba(0, 180, 216, 0.18);
 }
 
 .doctor-name {
@@ -902,7 +903,8 @@ th{color:#475569;font-weight:700}
 .separator {
   width: 50px;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  /* cool separator gradient */
+  background: linear-gradient(90deg, #00b4d8, #0066cc);
   margin: 15px auto;
   border-radius: 2px;
 }
