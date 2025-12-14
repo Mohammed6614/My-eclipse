@@ -131,48 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Landing booking form handler
-const landingForm = document.getElementById('landingBookingForm');
-if (landingForm) {
-  landingForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = new FormData(landingForm);
-    const name = form.get('name');
-    const email = form.get('email');
-    const service = form.get('service');
-    const date = form.get('date') || null;
-    const time = form.get('time') || '';
-    const timezone = form.get('timezone') || 'UTC';
-
-    if (!name || !email || !service) {
-      alert('Please fill name, email and select a service');
-      return;
-    }
-
-    // Frontend-only booking simulation (no backend).
-    try {
-      const booking = {
-        id: 'LOCAL-' + Date.now().toString(36),
-        name,
-        email,
-        service,
-        date: date || null,
-        time: time || '',
-        timezone: timezone || 'UTC',
-        notes: '',
-        createdAt: new Date().toISOString()
-      };
-      const receiptDiv = document.getElementById('landingBookingReceipt');
-      receiptDiv.innerHTML = `<div class="receipt-header"><div class="receipt-title">Booking Received</div><div class="receipt-number">ID: ${booking.id}</div></div><div class="receipt-content"><div>Service: ${service}</div><div>Date: ${date || 'TBD'}</div><div>Time: ${time || 'TBD'}</div></div>`;
-      receiptDiv.style.display = 'block';
-      landingForm.reset();
-      receiptDiv.scrollIntoView({ behavior: 'smooth' });
-    } catch (err) {
-      console.error('Landing booking error', err);
-      alert('Network error: could not submit booking.');
-    }
-  });
-}
+// Quick booking removed — booking is handled on SK.html now.
 
 // Small toast for email preview links
 function showEmailToast(previewUrl, adminUrl) {

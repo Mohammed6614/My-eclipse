@@ -99,7 +99,7 @@
           <p class="doctor-specialty">Specialist in Crowns & Aesthetic Dentistry</p>
           <div class="separator"></div>
           <h4>Working Hours</h4>
-          <p class="schedule">Mon — Fri: 09:00 — 17:00</p>
+          <p class="schedule">Mon — Thur: 09:00 — 17:00</p>
           <div class="contact-buttons">
             <button class="btn glow-button" id="callBtn">Quick Call</button>
             <button class="btn glow-button" id="msgBtn">Message</button>
@@ -202,7 +202,7 @@
     <section class="booking-section" id="booking-section">
       <div class="section-header" style="margin-bottom:3rem">
         <h2>Book Your Appointment</h2>
-        <p>Available Monday to Friday, 9:00 AM — 5:00 PM</p>
+        <p>Available Monday to Thursday, 9:00 AM — 5:00 PM</p>
       </div>
 
       <div class="booking-container">
@@ -226,6 +226,15 @@
           </div>
           <div class="form-group">
             <input type="date" name="date" required>
+          </div>
+          <div class="form-group">
+            <input type="time" name="time" placeholder="Preferred time (optional)" />
+          </div>
+          <div class="form-group">
+            <select name="timezone">
+              <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+              <option value="UTC">UTC</option>
+            </select>
           </div>
           <button class="btn cta pulse-button" type="submit">
             <span style="font-size:15px">Confirm Booking</span>

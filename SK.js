@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function(){
       const phone = formData.get('phone');
       const service = formData.get('service');
       const date = formData.get('date');
+      const time = formData.get('time') || '';
+      const timezone = formData.get('timezone') || 'UTC';
 
       // Require basic fields
       if (!name || !email || !service) {
@@ -36,13 +38,19 @@ document.addEventListener('DOMContentLoaded', function(){
           phone,
           service,
           date: date || null,
+          time: time || '',
+          timezone: timezone || 'UTC',
           notes: '',
           createdAt: new Date().toISOString()
         };
         const serviceInfo = servicePricing[service] || { name: 'Unknown Service', price: 0 };
         const receiptNumber = 'RCP-' + Date.now().toString().slice(-8);
         const receiptDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        const appointmentDate = date ? new Date(date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : 'To be scheduled';
+        let appointmentDate = 'To be scheduled';
+        if (date) {
+          if (time) appointmentDate = `${date} ${time} (${timezone})`;
+          else appointmentDate = new Date(date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
 
         // Create receipt HTML (same as before)
         const receiptHTML = `
@@ -74,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function(){
               <div class="receipt-item-label">Appointment Date</div>
               <div class="receipt-item-value">${appointmentDate}</div>
             </div>
+            ${time ? `<div class="receipt-item"><div class="receipt-item-label">Time</div><div class="receipt-item-value">${time} (${timezone})</div></div>` : ''}
           </div>
           
           <div class="receipt-summary">
